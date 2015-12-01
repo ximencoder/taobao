@@ -1,11 +1,10 @@
 package params
 
 import (
-	"fmt"
 	"encoding/json"
 )
 
-type OpenSmsSendMsgParam struct {
+type TaoBaoOpenSmsSendMsgParam struct {
 	// 必须参数
 	TemplateId            string                    `json:"template_id,omitempty"`
 	Context               map[string]interface{}    `json:"context"`
@@ -25,24 +24,23 @@ type OpenSmsSendMsgParam struct {
 	DeviceId              string                    `json:"device_id,omitempty"`
 }
 
-func (this OpenSmsSendMsgParam) APIName() string {
+func (this TaoBaoOpenSmsSendMsgParam) APIName() string {
 	return "taobao.open.sms.sendmsg"
 }
 
-func (this OpenSmsSendMsgParam) ParamName() string {
+func (this TaoBaoOpenSmsSendMsgParam) ParamName() string {
 	return "send_message_request"
 }
 
-func (this OpenSmsSendMsgParam) JSONString() string {
+func (this TaoBaoOpenSmsSendMsgParam) JSONString() string {
 	var bytes, err = json.Marshal(this)
 	if err != nil {
 		return ""
 	}
-	fmt.Println(string(bytes))
 	return string(bytes)
 }
 
-func (this *OpenSmsSendMsgParam) AddParam(key string, value interface{}) {
+func (this *TaoBaoOpenSmsSendMsgParam) AddParam(key string, value interface{}) {
 	if this.Context == nil {
 		this.Context = make(map[string]interface{})
 	}

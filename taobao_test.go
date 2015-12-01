@@ -7,7 +7,7 @@ import (
 )
 
 func TestOpenSmsSendMsgParam(t *testing.T) {
-	var p = params.OpenSmsSendMsgParam{}
+	var p = params.TaoBaoOpenSmsSendMsgParam{}
 	p.Mobile = "13558858128"
 	p.TemplateId = "1025"
 	p.AddParam("code", "1234511116")
