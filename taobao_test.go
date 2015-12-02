@@ -7,7 +7,7 @@ import (
 )
 
 func send(p params.IParam) {
-	fmt.Println(Send("23274732", "***", p))
+	fmt.Println(Send("23274732", "8eed038bab11210aa8099d8e450cd631", p))
 }
 
 func TestOpenSmsSendMsgParam(t *testing.T) {
@@ -59,7 +59,7 @@ func TestCloudPush(t *testing.T) {
 
 func TestAddUser(t *testing.T) {
 	var p = params.TaoBaoOpenIMUsersAddParam{}
-	p.UserId = "admin2"
+	p.UserId = "admin3"
 	p.Password = "123456"
 	send(p)
 }
