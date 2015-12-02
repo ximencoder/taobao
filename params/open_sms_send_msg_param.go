@@ -16,7 +16,7 @@ type TaoBaoOpenSmsSendMsgParam struct {
 	DeviceLimit           int                       `json:"external_id,omitempty"`
 	SessionLimit          int                       `json:"session_limit,omitempty"`
 	DeviceLimitInTime     int                       `json:"device_limit_in_time,omitempty"`
-	Mobile_limit          int                       `json:"mobile_limit,omitempty"`
+	MobileLimit           int                       `json:"mobile_limit,omitempty"`
 	SessionLimitInTime    int                       `json:"session_limit_in_time,omitempty"`
 	MobileLimitInTime     int                       `json:"mobile_limit_in_time,omitempty"`
 	SessionId             string                    `json:"session_id,omitempty"`
