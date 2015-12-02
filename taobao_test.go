@@ -7,7 +7,7 @@ import (
 )
 
 func send(p params.IParam) {
-	fmt.Println(Send("23274732", "****", p))
+	fmt.Println(Send("23274732", "***", p))
 }
 
 func TestOpenSmsSendMsgParam(t *testing.T) {
@@ -54,5 +54,23 @@ func TestCloudPush(t *testing.T) {
 	p.Remind = true
 	p.StoreOffline = true
 	p.Timeout = 72
+	send(p)
+}
+
+func TestAddUser(t *testing.T) {
+	var p = params.TaoBaoOpenIMUsersAddParam{}
+	p.UserId = "admin2"
+	p.Password = "123456"
+	send(p)
+}
+
+func TestPushIMMsg(t *testing.T) {
+	var p = params.TaoBaoOpenIMCustomMsgPushParam{}
+	p.FromUser = "admin2"
+	p.ToUsers = []string{"admin"}
+	p.Summary = "第一条消息"
+	p.Data = "aaaaa"
+	p.SetApsAlert("aa")
+	p.SetApsBadge(3)
 	send(p)
 }
