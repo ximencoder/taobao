@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 )
 
-type TaoBaoOpenSmsSendMsgParam struct {
+////////////////////////////////////////////////////////////////////////////////
+// OpenSMSSendMsgParam 向手机发送短信
+type OpenSMSSendMsgParam struct {
 	// 必须参数
 	TemplateId            string                    `json:"template_id,omitempty"`
 	Context               map[string]interface{}    `json:"context"`
@@ -24,19 +26,19 @@ type TaoBaoOpenSmsSendMsgParam struct {
 	DeviceId              string                    `json:"device_id,omitempty"`
 }
 
-func (this TaoBaoOpenSmsSendMsgParam) APIName() string {
+func (this OpenSMSSendMsgParam) APIName() string {
 	return "taobao.open.sms.sendmsg"
 }
 
-func (this TaoBaoOpenSmsSendMsgParam) Params() map[string]string {
+func (this OpenSMSSendMsgParam) Params() map[string]string {
 	return nil
 }
 
-func (this TaoBaoOpenSmsSendMsgParam) ExtJSONParamName() string {
+func (this OpenSMSSendMsgParam) ExtJSONParamName() string {
 	return "send_message_request"
 }
 
-func (this TaoBaoOpenSmsSendMsgParam) ExtJSONParamValue() string {
+func (this OpenSMSSendMsgParam) ExtJSONParamValue() string {
 	var bytes, err = json.Marshal(this)
 	if err != nil {
 		return ""
@@ -44,7 +46,7 @@ func (this TaoBaoOpenSmsSendMsgParam) ExtJSONParamValue() string {
 	return string(bytes)
 }
 
-func (this *TaoBaoOpenSmsSendMsgParam) AddParam(key string, value interface{}) {
+func (this *OpenSMSSendMsgParam) AddParam(key string, value interface{}) {
 	if this.Context == nil {
 		this.Context = make(map[string]interface{})
 	}

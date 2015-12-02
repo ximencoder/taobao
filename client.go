@@ -15,7 +15,22 @@ const (
 	TAO_BAO_OPEN_API_URL = "http://gw.api.taobao.com/router/rest"
 )
 
-func Send(appKey, appSecret string, param params.IParam) (results map[string]interface{}, err error) {
+var (
+	kTaoBaoAppKey    string
+	kTaoBaoAppSecret string
+)
+
+func UpdateKey(appKey, appSecret string) {
+	kTaoBaoAppKey    = appKey
+	kTaoBaoAppSecret = appSecret
+}
+
+func Request(param params.IParam) (results map[string]interface{}, err error) {
+	results, err = RequestWithKey(kTaoBaoAppKey, kTaoBaoAppSecret, param)
+	return results, err
+}
+
+func RequestWithKey(appKey, appSecret string, param params.IParam) (results map[string]interface{}, err error) {
 	var p = make(map[string]string)
 	p["timestamp"]       = time.Now().Format("2006-01-02 15:04:05")
 	p["format"]          = "json"

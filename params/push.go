@@ -6,8 +6,8 @@ import (
 )
 
 ////////////////////////////////////////////////////////////////////////////////
-// TaoBaoCloudPushParam 向所有平台设备推送通知的参数
-type TaoBaoCloudPushParam struct {
+// CloudPushParam 向所有平台设备推送通知的参数
+type CloudPushParam struct {
 	Title	                string	// 必须		推送的标题内容.
 	Body	                string	// 必须		推送内容
 	DeviceType	            int	    // 必须		设备类型,取值范围为:0~3云推送支持多种设备,各种设备类型编号如下: iOS设备:deviceType=0; Andriod设备:deviceType=1;如果存在此字段,则向指定的设备类型推送消息。 默认为全部(3);
@@ -33,11 +33,11 @@ type TaoBaoCloudPushParam struct {
 	iOSExtParameters	    map[string]string	// 可选		自定义的kv结构,开发者扩展用 针对iOS设备
 }
 
-func (this TaoBaoCloudPushParam) APIName() string {
+func (this CloudPushParam) APIName() string {
 	return "taobao.cloudpush.push"
 }
 
-func (this TaoBaoCloudPushParam) Params() map[string]string {
+func (this CloudPushParam) Params() map[string]string {
 	var m = make(map[string]string)
 	m["target"]                 = this.Target
 	m["target_value"]           = this.TargetValue
@@ -109,22 +109,22 @@ func (this TaoBaoCloudPushParam) Params() map[string]string {
 	return m
 }
 
-func (this TaoBaoCloudPushParam) ExtJSONParamName() string {
+func (this CloudPushParam) ExtJSONParamName() string {
 	return ""
 }
 
-func (this TaoBaoCloudPushParam) ExtJSONParamValue() string {
+func (this CloudPushParam) ExtJSONParamValue() string {
 	return ""
 }
 
-func (this *TaoBaoCloudPushParam) AddAndroidExtParam(key, value string) {
+func (this *CloudPushParam) AddAndroidExtParam(key, value string) {
 	if this.androidExtParameters == nil {
 		this.androidExtParameters = make(map[string]string)
 	}
 	this.androidExtParameters[key] = value
 }
 
-func (this *TaoBaoCloudPushParam) AddiOSExtParam(key, value string) {
+func (this *CloudPushParam) AddiOSExtParam(key, value string) {
 	if this.iOSExtParameters == nil {
 		this.iOSExtParameters = make(map[string]string)
 	}
@@ -132,8 +132,8 @@ func (this *TaoBaoCloudPushParam) AddiOSExtParam(key, value string) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// TaoBaoCloudPushNoticeIOSParam 向 iOS 平台设备推送 APNS 通知的参数
-type TaoBaoCloudPushNoticeIOSParam struct {
+// CloudPushNoticeToIOSParam 向 iOS 平台设备推送 APNS 通知的参数
+type CloudPushNoticeToIOSParam struct {
 	Summary     string
 	Target      string
 	TargetValue string
@@ -141,11 +141,11 @@ type TaoBaoCloudPushNoticeIOSParam struct {
 	Ext         map[string]interface{}
 }
 
-func (this TaoBaoCloudPushNoticeIOSParam) APIName() string {
+func (this CloudPushNoticeToIOSParam) APIName() string {
 	return "taobao.cloudpush.notice.ios"
 }
 
-func (this TaoBaoCloudPushNoticeIOSParam) Params() map[string]string {
+func (this CloudPushNoticeToIOSParam) Params() map[string]string {
 	var m = make(map[string]string)
 	m["summary"] = this.Summary
 	m["target"]  = this.Target
@@ -154,11 +154,11 @@ func (this TaoBaoCloudPushNoticeIOSParam) Params() map[string]string {
 	return m
 }
 
-func (this TaoBaoCloudPushNoticeIOSParam) ExtJSONParamName() string {
+func (this CloudPushNoticeToIOSParam) ExtJSONParamName() string {
 	return "ext"
 }
 
-func (this TaoBaoCloudPushNoticeIOSParam) ExtJSONParamValue() string {
+func (this CloudPushNoticeToIOSParam) ExtJSONParamValue() string {
 	var bytes, err = json.Marshal(this.Ext)
 	if err != nil {
 		return ""
@@ -166,7 +166,7 @@ func (this TaoBaoCloudPushNoticeIOSParam) ExtJSONParamValue() string {
 	return string(bytes)
 }
 
-func (this *TaoBaoCloudPushNoticeIOSParam) AddParam(key string, value interface{}) {
+func (this *CloudPushNoticeToIOSParam) AddParam(key string, value interface{}) {
 	if this.Ext == nil {
 		this.Ext = make(map[string]interface{})
 	}
@@ -174,8 +174,8 @@ func (this *TaoBaoCloudPushNoticeIOSParam) AddParam(key string, value interface{
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// TaoBaoCloudPushNoticeAndroidParam 向 Android 平台设备推送通知消息的参数
-type TaoBaoCloudPushNoticeAndroidParam struct {
+// CloudPushNoticeToAndroidParam 向 Android 平台设备推送通知消息的参数
+type CloudPushNoticeToAndroidParam struct {
 	Title       string
 	Summary     string
 	Target      string
@@ -184,11 +184,11 @@ type TaoBaoCloudPushNoticeAndroidParam struct {
 	Ext         map[string]interface{}
 }
 
-func (this TaoBaoCloudPushNoticeAndroidParam) APIName() string {
+func (this CloudPushNoticeToAndroidParam) APIName() string {
 	return "taobao.cloudpush.notice.android "
 }
 
-func (this TaoBaoCloudPushNoticeAndroidParam) Params() map[string]string {
+func (this CloudPushNoticeToAndroidParam) Params() map[string]string {
 	var m = make(map[string]string)
 	m["summary"] = this.Summary
 	m["target"]  = this.Target
@@ -197,27 +197,27 @@ func (this TaoBaoCloudPushNoticeAndroidParam) Params() map[string]string {
 	return m
 }
 
-func (this TaoBaoCloudPushNoticeAndroidParam) ExtJSONParamName() string {
+func (this CloudPushNoticeToAndroidParam) ExtJSONParamName() string {
 	return ""
 }
 
-func (this TaoBaoCloudPushNoticeAndroidParam) ExtJSONParamValue() string {
+func (this CloudPushNoticeToAndroidParam) ExtJSONParamValue() string {
 	return ""
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// TaoBaoCloudPushMessageIOSParam 向 iOS 平台设备推送消息的参数（非 APNS 通知）
-type TaoBaoCloudPushMessageIOSParam struct {
+// CloudPushMessageToIOSParam 向 iOS 平台设备推送消息的参数（非 APNS 通知）
+type CloudPushMessageToIOSParam struct {
 	Body        string
 	Target      string
 	TargetValue string
 }
 
-func (this TaoBaoCloudPushMessageIOSParam) APIName() string {
+func (this CloudPushMessageToIOSParam) APIName() string {
 	return "taobao.cloudpush.message.ios"
 }
 
-func (this TaoBaoCloudPushMessageIOSParam) Params() map[string]string {
+func (this CloudPushMessageToIOSParam) Params() map[string]string {
 	var m = make(map[string]string)
 	m["body"] = this.Body
 	m["target"]  = this.Target
@@ -225,23 +225,23 @@ func (this TaoBaoCloudPushMessageIOSParam) Params() map[string]string {
 	return m
 }
 
-func (this TaoBaoCloudPushMessageIOSParam) ExtJSONParamName() string {
+func (this CloudPushMessageToIOSParam) ExtJSONParamName() string {
 	return ""
 }
 
-func (this TaoBaoCloudPushMessageIOSParam) ExtJSONParamValue() string {
+func (this CloudPushMessageToIOSParam) ExtJSONParamValue() string {
 	return ""
 }
 
-func (this *TaoBaoCloudPushMessageIOSParam) AddParam(key string, value interface{}) {
+func (this *CloudPushMessageToIOSParam) AddParam(key string, value interface{}) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// TaoBaoCloudPushMessageAndroidParam 向 Android 平台设备推送消息的参数
-type TaoBaoCloudPushMessageAndroidParam struct {
-	TaoBaoCloudPushMessageIOSParam
+// CloudPushMessageToAndroidParam 向 Android 平台设备推送消息的参数
+type CloudPushMessageToAndroidParam struct {
+	CloudPushMessageToIOSParam
 }
 
-func (this TaoBaoCloudPushMessageAndroidParam) APIName() string {
+func (this CloudPushMessageToAndroidParam) APIName() string {
 	return "taobao.cloudpush.message.android"
 }

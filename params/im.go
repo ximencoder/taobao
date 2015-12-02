@@ -5,8 +5,8 @@ import (
 )
 
 ////////////////////////////////////////////////////////////////////////////////
-// TaoBaoOpenIMUsersAddParam 添加 IM 用户
-type TaoBaoOpenIMUsersAddParam struct {
+// OpenIMAddUserParam 添加 IM 用户
+type OpenIMAddUserParam struct {
 	UserId   string   `json:"userid"`    // 必须 im用户名
 	Password string   `json:"password"`  // 必须 im密码
 
@@ -28,19 +28,19 @@ type TaoBaoOpenIMUsersAddParam struct {
     WeiBo    string   `json:"weibo,omitempty"`      // 可选 微博
 }
 
-func (this TaoBaoOpenIMUsersAddParam) APIName() string {
+func (this OpenIMAddUserParam) APIName() string {
 	return "taobao.openim.users.add"
 }
 
-func (this TaoBaoOpenIMUsersAddParam) Params() map[string]string {
+func (this OpenIMAddUserParam) Params() map[string]string {
 	return nil
 }
 
-func (this TaoBaoOpenIMUsersAddParam) ExtJSONParamName() string {
+func (this OpenIMAddUserParam) ExtJSONParamName() string {
 	return "userinfos"
 }
 
-func (this TaoBaoOpenIMUsersAddParam) ExtJSONParamValue() string {
+func (this OpenIMAddUserParam) ExtJSONParamValue() string {
 	var bytes, err = json.Marshal(this)
 	if err != nil {
 		return ""
@@ -49,8 +49,8 @@ func (this TaoBaoOpenIMUsersAddParam) ExtJSONParamValue() string {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// TaoBaoOpenIMMsgPushParam 发送标准 IM 消息
-type TaoBaoOpenIMMsgPushParam struct {
+// OpenIMPushMsgParam 发送标准 IM 消息
+type OpenIMPushMsgParam struct {
 	FromUser  string    `json:"from_user,omitempty"`    // 可选 消息发送者
 	ToUsers   []string  `json:"to_users,omitempty"`     // 可选 消息接受者
 	MsgType   int       `json:"msg_type,omitempty"`     // 可选 消息类型。0:文本消息。1:图片消息，只支持jpg、gif。2:语音消息，只支持amr。8:地理位置信息。
@@ -59,19 +59,19 @@ type TaoBaoOpenIMMsgPushParam struct {
 	MediaAttr string    `json:"media_attr,omitempty"`   // 可选 json map，媒体信息属性。根据msgtype变化。0(文本):填空即可。 1(图片):需要图片格式，{"type":"jpg"}或{"type":"gif"}。 2(语音): 需要文件格式和语音长度信息{"type":"amr","playtime":5}
 }
 
-func (this TaoBaoOpenIMMsgPushParam) APIName() string {
+func (this OpenIMPushMsgParam) APIName() string {
 	return "taobao.openim.immsg.push"
 }
 
-func (this TaoBaoOpenIMMsgPushParam) Params() map[string]string {
+func (this OpenIMPushMsgParam) Params() map[string]string {
 	return nil
 }
 
-func (this TaoBaoOpenIMMsgPushParam) ExtJSONParamName() string {
+func (this OpenIMPushMsgParam) ExtJSONParamName() string {
 	return "immsg"
 }
 
-func (this TaoBaoOpenIMMsgPushParam) ExtJSONParamValue() string {
+func (this OpenIMPushMsgParam) ExtJSONParamValue() string {
 	var bytes, err = json.Marshal(this)
 	if err != nil {
 		return ""
@@ -80,8 +80,8 @@ func (this TaoBaoOpenIMMsgPushParam) ExtJSONParamValue() string {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// TaoBaoOpenIMMsgPushParam 发送自定义 IM 消息
-type TaoBaoOpenIMCustomMsgPushParam struct {
+// OpenIMPushCustomMsgParam 发送自定义 IM 消息
+type OpenIMPushCustomMsgParam struct {
 	FromUser  string                    `json:"from_user,omitempty"`    // 可选 消息发送者
 	ToUsers   []string                  `json:"to_users,omitempty"`     // 必须 消息接受者
 	ToAppKey  string                    `json:"to_appkey,omitempty"`    // 可选 接收方appkey，默认本app，跨app发送时需要用到
@@ -91,19 +91,19 @@ type TaoBaoOpenIMCustomMsgPushParam struct {
 	ApsParam  map[string]interface{}    `json:"apns_param,omitempty"`   // 可选 apns推送的附带数据。
 }
 
-func (this TaoBaoOpenIMCustomMsgPushParam) APIName() string {
+func (this OpenIMPushCustomMsgParam) APIName() string {
 	return "taobao.openim.custmsg.push"
 }
 
-func (this TaoBaoOpenIMCustomMsgPushParam) Params() map[string]string {
+func (this OpenIMPushCustomMsgParam) Params() map[string]string {
 	return nil
 }
 
-func (this TaoBaoOpenIMCustomMsgPushParam) ExtJSONParamName() string {
+func (this OpenIMPushCustomMsgParam) ExtJSONParamName() string {
 	return "custmsg"
 }
 
-func (this TaoBaoOpenIMCustomMsgPushParam) ExtJSONParamValue() string {
+func (this OpenIMPushCustomMsgParam) ExtJSONParamValue() string {
 	var bytes, err = json.Marshal(this)
 	if err != nil {
 		return ""
@@ -111,26 +111,26 @@ func (this TaoBaoOpenIMCustomMsgPushParam) ExtJSONParamValue() string {
 	return string(bytes)
 }
 
-func (this *TaoBaoOpenIMCustomMsgPushParam) setAps(key string, value interface{}) {
+func (this *OpenIMPushCustomMsgParam) setAps(key string, value interface{}) {
 	if this.Aps == nil {
 		this.Aps = make(map[string]interface{})
 	}
 	this.Aps[key] = value
 }
 
-func (this *TaoBaoOpenIMCustomMsgPushParam) SetApsAlert(alert string) {
+func (this *OpenIMPushCustomMsgParam) SetApsAlert(alert string) {
 	this.setAps("alert", alert)
 }
 
-func (this *TaoBaoOpenIMCustomMsgPushParam) SetApsBadge(badge int) {
+func (this *OpenIMPushCustomMsgParam) SetApsBadge(badge int) {
 	this.setAps("badge", badge)
 }
 
-func (this *TaoBaoOpenIMCustomMsgPushParam) SetApsSound(sound string) {
+func (this *OpenIMPushCustomMsgParam) SetApsSound(sound string) {
 	this.setAps("sound", sound)
 }
 
-func (this *TaoBaoOpenIMCustomMsgPushParam) AddApsParam(key string, value interface{}) {
+func (this *OpenIMPushCustomMsgParam) AddApsParam(key string, value interface{}) {
 	if this.ApsParam == nil {
 		this.ApsParam = make(map[string]interface{})
 	}
