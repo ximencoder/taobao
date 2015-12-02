@@ -28,11 +28,15 @@ func (this TaoBaoOpenSmsSendMsgParam) APIName() string {
 	return "taobao.open.sms.sendmsg"
 }
 
-func (this TaoBaoOpenSmsSendMsgParam) ParamName() string {
+func (this TaoBaoOpenSmsSendMsgParam) Params() map[string]string {
+	return nil
+}
+
+func (this TaoBaoOpenSmsSendMsgParam) ExtJSONParamName() string {
 	return "send_message_request"
 }
 
-func (this TaoBaoOpenSmsSendMsgParam) JSONString() string {
+func (this TaoBaoOpenSmsSendMsgParam) ExtJSONParamValue() string {
 	var bytes, err = json.Marshal(this)
 	if err != nil {
 		return ""

@@ -4,29 +4,35 @@ import (
 	"encoding/json"
 )
 
+////////////////////////////////////////////////////////////////////////////////
 type IParam interface{
 	// 用于提供访问的 method
 	APIName() string
 
-	// 返回请求参数的名字
-	ParamName() string
+	Params() map[string]string
 
-	// 返回参数的 JSON 字符串
-	JSONString() string
+	// 返回扩展 JSON 参数的字段名称
+	ExtJSONParamName() string
+	// 返回扩展 JSON 参数的字段值
+	ExtJSONParamValue() string
 }
 
-
+////////////////////////////////////////////////////////////////////////////////
 type TaoBaoParam map[string]interface{}
 
 func (this TaoBaoParam) APIName() string {
 	return "taobao.open.sms.sendmsg"
 }
 
-func (this TaoBaoParam) ParamName() string {
+func (this TaoBaoParam) Params() map[string]string {
+	return nil
+}
+
+func (this TaoBaoParam) ExtJSONParamName() string {
 	return "send_message_request"
 }
 
-func (this TaoBaoParam) JSONString() string {
+func (this TaoBaoParam) ExtJSONParamValue() string {
 	var bytes, err = json.Marshal(this)
 	if err != nil {
 		return ""

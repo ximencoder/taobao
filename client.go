@@ -23,7 +23,17 @@ func Send(appKey, appSecret string, param params.IParam) (results map[string]int
 	p["sign_method"]     = "md5"
 	p["app_key"]         = appKey
 	p["method"]          = param.APIName()
-	p[param.ParamName()] = param.JSONString()
+
+	if len(param.ExtJSONParamName()) > 0 {
+		p[param.ExtJSONParamName()] = param.ExtJSONParamValue()
+	}
+
+	var ps = param.Params()
+	if ps != nil {
+		for key, value := range ps {
+			p[key] = value
+		}
+	}
 
 	var c = http.NewClient()
 	c.SetMethod("POST")
