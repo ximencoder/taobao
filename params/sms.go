@@ -6,24 +6,25 @@ import (
 
 ////////////////////////////////////////////////////////////////////////////////
 // OpenSMSSendMsgParam 向手机发送短信
+// http://open.taobao.com/doc2/apiDetail.htm?spm=0.0.0.0.fnw4Cl&apiId=25598&docType=
 type OpenSMSSendMsgParam struct {
 	// 必须参数
-	TemplateId            string                    `json:"template_id,omitempty"`
-	Context               map[string]interface{}    `json:"context"`
-	Mobile                string                    `json:"mobile"`
+	TemplateId            string                    `json:"template_id,omitempty"`            // 必须 模板id
+	Context               map[string]interface{}    `json:"context"`                          // 必须 模板上下文
+	Mobile                string                    `json:"mobile"`                           // 必须 手机号
 
 	// 可选参数
-	SignatureId           string                    `json:"signature_id,omitempty"`
-	ExternalId            string                    `json:"external_id,omitempty"`
-	DeviceLimit           int                       `json:"external_id,omitempty"`
-	SessionLimit          int                       `json:"session_limit,omitempty"`
-	DeviceLimitInTime     int                       `json:"device_limit_in_time,omitempty"`
-	MobileLimit           int                       `json:"mobile_limit,omitempty"`
-	SessionLimitInTime    int                       `json:"session_limit_in_time,omitempty"`
-	MobileLimitInTime     int                       `json:"mobile_limit_in_time,omitempty"`
-	SessionId             string                    `json:"session_id,omitempty"`
-	Domain                string                    `json:"domain,omitempty"`
-	DeviceId              string                    `json:"device_id,omitempty"`
+	SignatureId           string                    `json:"signature_id,omitempty"`           // 可选 签名id
+	ExternalId            string                    `json:"external_id,omitempty"`            // 可选 外部id
+	DeviceLimit           int                       `json:"external_id,omitempty"`            // 可选 设备级别次数限制
+	SessionLimit          int                       `json:"session_limit,omitempty"`          // 可选 session级别次数限制
+	DeviceLimitInTime     int                       `json:"device_limit_in_time,omitempty"`   // 可选 时间，单位秒
+	MobileLimit           int                       `json:"mobile_limit,omitempty"`           // 可选 手机号限制
+	SessionLimitInTime    int                       `json:"session_limit_in_time,omitempty"`  // 可选 时间，单位秒
+	MobileLimitInTime     int                       `json:"mobile_limit_in_time,omitempty"`   // 可选 时间，单位秒
+	SessionId             string                    `json:"session_id,omitempty"`             // 可选 sessionId
+	Domain                string                    `json:"domain,omitempty"`                 // 可选 业务域
+	DeviceId              string                    `json:"device_id,omitempty"`              // 可选 设备id
 }
 
 func (this OpenSMSSendMsgParam) APIName() string {
