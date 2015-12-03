@@ -1,13 +1,11 @@
 package params
 
 import (
+	"strings"
 	"encoding/json"
 )
 
-////////////////////////////////////////////////////////////////////////////////
-// OpenIMAddUserParam 添加 IM 用户
-// http://open.taobao.com/doc2/apiDetail.htm?spm=0.0.0.0.pMpmGG&apiId=24164&docType=
-type OpenIMAddUserParam struct {
+type OpenIMUser struct {
 	UserId   string   `json:"userid"`               // 必须 im用户名
 	Password string   `json:"password"`             // 必须 im密码
 
@@ -29,24 +27,88 @@ type OpenIMAddUserParam struct {
 	WeiBo    string   `json:"weibo,omitempty"`      // 可选 微博
 }
 
-func (this OpenIMAddUserParam) APIName() string {
+////////////////////////////////////////////////////////////////////////////////
+// OpenIMAddUsersParam 添加 IM 用户
+// http://open.taobao.com/doc2/apiDetail.htm?spm=0.0.0.0.pMpmGG&apiId=24164&docType=
+type OpenIMAddUsersParam struct {
+	userInfoList []*OpenIMUser `json:"userinfos"`  // 必须  用户信息列表
+}
+
+func (this OpenIMAddUsersParam) APIName() string {
 	return "taobao.openim.users.add"
 }
 
-func (this OpenIMAddUserParam) Params() map[string]string {
+func (this OpenIMAddUsersParam) Params() map[string]string {
 	return nil
 }
 
-func (this OpenIMAddUserParam) ExtJSONParamName() string {
+func (this OpenIMAddUsersParam) ExtJSONParamName() string {
 	return "userinfos"
 }
 
-func (this OpenIMAddUserParam) ExtJSONParamValue() string {
-	var bytes, err = json.Marshal(this)
+func (this OpenIMAddUsersParam) ExtJSONParamValue() string {
+	var bytes, err = json.Marshal(this.userInfoList)
 	if err != nil {
 		return ""
 	}
 	return string(bytes)
+}
+
+func (this *OpenIMAddUsersParam) AddOpenIMUser(user *OpenIMUser) {
+	if user == nil {
+		return
+	}
+	if this.userInfoList == nil {
+		this.userInfoList = make([]*OpenIMUser, 0, 0)
+	}
+	this.userInfoList = append(this.userInfoList, user)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// OpenIMGetUsersParam 批量获取 IM 用户信息
+// http://open.taobao.com/doc2/apiDetail.htm?spm=0.0.0.0.JOoCKr&apiId=24157
+type OpenIMGetUsersParam struct {
+	UserIds []string  // 必须 多个用户用半角逗号分隔，最多一次获取100个用户
+}
+
+func (this OpenIMGetUsersParam) APIName() string {
+	return "taobao.openim.users.get"
+}
+
+func (this OpenIMGetUsersParam) Params() map[string]string {
+	var m = make(map[string]string)
+	m["userids"] = strings.Join(this.UserIds, ",")
+	return m
+}
+
+func (this OpenIMGetUsersParam) ExtJSONParamName() string {
+	return ""
+}
+
+func (this OpenIMGetUsersParam) ExtJSONParamValue() string {
+	return ""
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// OpenIMDeleteUsersParam 批量删除 IM 用户信息
+// http://open.taobao.com/doc2/apiDetail.htm?spm=0.0.0.0.z7KKvy&apiId=24160
+type OpenIMDeleteUsersParam struct {
+	OpenIMGetUsersParam
+}
+
+func (this OpenIMDeleteUsersParam) APIName() string {
+	return "taobao.openim.users.delete"
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// OpenIMUpdateUsers 批量更新用户信息
+// http://open.taobao.com/doc2/apiDetail.htm?spm=0.0.0.0.JcWhN0&apiId=24161
+type OpenIMUpdateUsersParam struct {
+	OpenIMAddUsersParam
+}
+
+func (this OpenIMUpdateUsersParam) APIName() string {
+	return "taobao.openim.users.update"
 }
 
 ////////////////////////////////////////////////////////////////////////////////
