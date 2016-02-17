@@ -46,7 +46,7 @@ func (this CloudPushParam) Params() map[string]string {
 		m["android_activity"]       = this.AndroidActivity
 	}
 	if len(this.androidExtParameters) > 0 {
-		var bytes, _ = json.Marshal(this)
+		var bytes, _ = json.Marshal(this.androidExtParameters)
 		var c = string(bytes)
 		if len(c) > 0 {
 			m["android_ext_parameters"] = c
@@ -76,7 +76,7 @@ func (this CloudPushParam) Params() map[string]string {
 		m["ios_badge"]              = this.IOSBadge
 	}
 	if len(this.iOSExtParameters) > 0 {
-		var bytes, _ = json.Marshal(this)
+		var bytes, _ = json.Marshal(this.iOSExtParameters)
 		var c = string(bytes)
 		if len(c) > 0 {
 			m["ios_ext_parameters"] = c
@@ -186,7 +186,7 @@ type CloudPushNoticeToAndroidParam struct {
 }
 
 func (this CloudPushNoticeToAndroidParam) APIName() string {
-	return "taobao.cloudpush.notice.android "
+	return "taobao.cloudpush.notice.android"
 }
 
 func (this CloudPushNoticeToAndroidParam) Params() map[string]string {
