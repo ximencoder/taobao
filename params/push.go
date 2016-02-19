@@ -179,10 +179,10 @@ func (this *CloudPushNoticeToIOSParam) AddParam(key string, value interface{}) {
 // CloudPushNoticeToAndroidParam 向 Android 平台设备推送通知消息的参数
 // http://open.taobao.com/doc2/apiDetail.htm?spm=0.0.0.0.4lW0QW&apiId=25039
 type CloudPushNoticeToAndroidParam struct {
-	Title       string  // 必须  通知摘要
-	Summary     string  // 必须  推送目标: device:推送给设备; account:推送给指定帐号,all: 推送给全部
-	Target      string  // 必须  根据Target来设定，如Target=device, 则对应的值为 设备id1,设备id2. 多个值使用逗号分隔
-	TargetValue string  // 必须  通知的标题.
+	Title       string  // 必须  通知的标题.
+	Summary     string  // 必须  通知摘要
+	Target      string  // 必须  推送目标: device:推送给设备; account:推送给指定帐号,all: 推送给全部
+	TargetValue string  // 必须  根据Target来设定，如Target=device, 则对应的值为 设备id1,设备id2. 多个值使用逗号分隔
 }
 
 func (this CloudPushNoticeToAndroidParam) APIName() string {
