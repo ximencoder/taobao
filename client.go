@@ -8,7 +8,6 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"github.com/smartwalle/going/http"
-	"github.com/smartwalle/taobao/params"
 )
 
 const (
@@ -25,12 +24,12 @@ func UpdateKey(appKey, appSecret string) {
 	kTaoBaoAppSecret = appSecret
 }
 
-func Request(param params.IParam) (results map[string]interface{}, err error) {
+func Request(param IParam) (results map[string]interface{}, err error) {
 	results, err = RequestWithKey(kTaoBaoAppKey, kTaoBaoAppSecret, param)
 	return results, err
 }
 
-func RequestWithKey(appKey, appSecret string, param params.IParam) (results map[string]interface{}, err error) {
+func RequestWithKey(appKey, appSecret string, param IParam) (results map[string]interface{}, err error) {
 	var p = make(map[string]string)
 	p["timestamp"]       = time.Now().Format("2006-01-02 15:04:05")
 	p["format"]          = "json"

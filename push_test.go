@@ -1,14 +1,12 @@
-package params_test
+package taobao
 
 //import (
 //	"fmt"
 //	"testing"
-//	"github.com/smartwalle/taobao/params"
-//	"github.com/smartwalle/taobao"
 //)
 
 //func TestCloudPushNoticeToIOSParam(t *testing.T) {
-//	var p = params.CloudPushNoticeToIOSParam{}
+//	var p = CloudPushNoticeToIOSParam{}
 //	p.Summary = "golang"
 //	p.Target = "all"
 //	p.Environment = "DEV"
@@ -18,32 +16,32 @@ package params_test
 //	p.AddParam("aaa", "eee")
 //
 //	fmt.Println("===== TestCloudPushNoticeToIOSParam =====")
-//	fmt.Println(taobao.RequestWithKey("23201003", "1e2dfd16981d75142597fd10131b17b5", p))
+//	fmt.Println(RequestWithKey("23201003", "1e2dfd16981d75142597fd10131b17b5", p))
 //}
 //
 //func TestCloudPushNoticeToAndroidParam(t *testing.T) {
-//	var p = params.CloudPushNoticeToAndroidParam{}
+//	var p = CloudPushNoticeToAndroidParam{}
 //	p.Title = "ttt"
 //	p.Summary = "aaaa"
 //	p.Target = "all"
 //	p.TargetValue = "e"
 //
 //	fmt.Println("===== TestCloudPushNoticeToAndroidParam =====")
-//	fmt.Println(taobao.RequestWithKey("23201003", "1e2dfd16981d75142597fd10131b17b5", p))
+//	fmt.Println(RequestWithKey("23201003", "1e2dfd16981d75142597fd10131b17b5", p))
 //}
 
 //func TestCloudPushMessageToIOSParam(t *testing.T) {
-//	var p = params.CloudPushMessageToIOSParam{}
+//	var p = CloudPushMessageToIOSParam{}
 //	p.Body = "中文"
 //	p.Target = "all"
 //	p.TargetValue = "e"
 //
 //	fmt.Println("===== TestCloudPushMessageToIOSParam =====")
-//	fmt.Println(taobao.RequestWithKey("23274732", "8eed038bab11210aa8099d8e450cd631", p))
+//	fmt.Println(RequestWithKey("23274732", "8eed038bab11210aa8099d8e450cd631", p))
 //}
 
 //func TestCloudPushParam(t *testing.T) {
-//	var p = params.CloudPushParam{}
+//	var p = CloudPushParam{}
 //	p.Title = "标题"
 //	p.Body = "hiaa"
 //	p.Summery = "summery"
@@ -57,5 +55,5 @@ package params_test
 //	p.Timeout = 3
 //	p.AddiOSExtParam("k", "v")
 //	fmt.Println("===== TestCloudPushParam =====")
-//	fmt.Println(taobao.RequestWithKey("23274732", "8eed038bab11210aa8099d8e450cd631", p))
+//	fmt.Println(RequestWithKey("23274732", "8eed038bab11210aa8099d8e450cd631", p))
 //}

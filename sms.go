@@ -1,4 +1,4 @@
-package params
+package taobao
 
 import (
 	"encoding/json"
