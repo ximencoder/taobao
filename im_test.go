@@ -81,3 +81,33 @@ package taobao
 //	fmt.Println("===== TestOpenIMPushMsgParam =====")
 //	fmt.Println(RequestWithKey("23201003", "1e2dfd16981d75142597fd10131b17b5", p))
 //}
+
+//func TestOpenIMCreateTribeParam(t *testing.T) {
+//	var p = OpenIMCreateTribeParam{}
+//
+//	var u = &OpenIMUser{}
+//	u.AppKey = "23274732"
+//	u.TaoBaoAccount = false
+//	u.UserId = "55ff574b4ea0461440000003"
+//	p.User = u
+//
+//	p.TribeName = "test trib"
+//	p.Notice = "open la"
+//	p.TribeType = "0"
+//
+//	fmt.Println("===== TestOpenIMCreateTribeParam =====")
+//	fmt.Println(RequestWithKey("23274732", "8eed038bab11210aa8099d8e450cd631", p))
+//}
+
+//func TestOpenIMGetTribeInfoParam(t *testing.T) {
+//	var p = OpenIMGetTribeInfoParam{}
+//	var u = &OpenIMUser{}
+//	u.AppKey = "23274732"
+//	u.TaoBaoAccount = false
+//	u.UserId = "55ff574b4ea0461440000003"
+//	p.User = u
+//	p.TribeId = "1675657139"
+//
+//	fmt.Println("===== TestOpenIMGetTribeInfoParam =====")
+//	fmt.Println(RequestWithKey("23274732", "8eed038bab11210aa8099d8e450cd631", p))
+//}

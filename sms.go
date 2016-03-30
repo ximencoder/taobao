@@ -1,9 +1,5 @@
 package taobao
 
-import (
-	"encoding/json"
-)
-
 ////////////////////////////////////////////////////////////////////////////////
 // OpenSMSSendMsgParam 向手机发送短信
 // http://open.taobao.com/doc2/apiDetail.htm?spm=0.0.0.0.fnw4Cl&apiId=25598&docType=
@@ -40,11 +36,7 @@ func (this OpenSMSSendMsgParam) ExtJSONParamName() string {
 }
 
 func (this OpenSMSSendMsgParam) ExtJSONParamValue() string {
-	var bytes, err = json.Marshal(this)
-	if err != nil {
-		return ""
-	}
-	return string(bytes)
+	return marshal(this)
 }
 
 func (this *OpenSMSSendMsgParam) AddParam(key string, value interface{}) {

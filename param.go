@@ -19,6 +19,7 @@ type IParam interface{
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// 示例，别无它用
 type TaoBaoParam map[string]interface{}
 
 func (this TaoBaoParam) APIName() string {
@@ -43,4 +44,13 @@ func (this TaoBaoParam) ExtJSONParamValue() string {
 
 func (this TaoBaoParam) AddParam(key string, value interface{}) {
 	this[key] = value
+}
+
+
+func marshal(obj interface{}) string {
+	var bytes, err = json.Marshal(obj)
+	if err != nil {
+		return ""
+	}
+	return string(bytes)
 }

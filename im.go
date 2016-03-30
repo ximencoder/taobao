@@ -2,10 +2,9 @@ package taobao
 
 import (
 	"strings"
-	"encoding/json"
 )
 
-type OpenIMUser struct {
+type OpenIMUserInfo struct {
 	UserId   string   `json:"userid"`               // 必须 im用户名
 	Password string   `json:"password"`             // 必须 im密码
 
@@ -27,11 +26,17 @@ type OpenIMUser struct {
 	WeiBo    string   `json:"weibo,omitempty"`      // 可选 微博
 }
 
+type OpenIMUser struct {
+	UserId        string `json:"uid"`                // 可选 用户id
+	TaoBaoAccount bool   `json:"taobao_account"`     // 可选 是否为淘宝账号
+	AppKey        string `json:"app_key"`            // 可选 账户appkey
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // OpenIMAddUsersParam 添加 IM 用户
 // http://open.taobao.com/doc2/apiDetail.htm?spm=0.0.0.0.pMpmGG&apiId=24164&docType=
 type OpenIMAddUsersParam struct {
-	userInfoList []*OpenIMUser `json:"userinfos"`  // 必须  用户信息列表
+	userInfoList []*OpenIMUserInfo `json:"userinfos"`  // 必须  用户信息列表
 }
 
 func (this OpenIMAddUsersParam) APIName() string {
@@ -47,19 +52,15 @@ func (this OpenIMAddUsersParam) ExtJSONParamName() string {
 }
 
 func (this OpenIMAddUsersParam) ExtJSONParamValue() string {
-	var bytes, err = json.Marshal(this.userInfoList)
-	if err != nil {
-		return ""
-	}
-	return string(bytes)
+	return marshal(this.userInfoList)
 }
 
-func (this *OpenIMAddUsersParam) AddOpenIMUser(user *OpenIMUser) {
+func (this *OpenIMAddUsersParam) AddOpenIMUser(user *OpenIMUserInfo) {
 	if user == nil {
 		return
 	}
 	if this.userInfoList == nil {
-		this.userInfoList = make([]*OpenIMUser, 0, 0)
+		this.userInfoList = make([]*OpenIMUserInfo, 0, 0)
 	}
 	this.userInfoList = append(this.userInfoList, user)
 }
@@ -136,11 +137,7 @@ func (this OpenIMPushMsgParam) ExtJSONParamName() string {
 }
 
 func (this OpenIMPushMsgParam) ExtJSONParamValue() string {
-	var bytes, err = json.Marshal(this)
-	if err != nil {
-		return ""
-	}
-	return string(bytes)
+	return marshal(this)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -169,11 +166,7 @@ func (this OpenIMPushCustomMsgParam) ExtJSONParamName() string {
 }
 
 func (this OpenIMPushCustomMsgParam) ExtJSONParamValue() string {
-	var bytes, err = json.Marshal(this)
-	if err != nil {
-		return ""
-	}
-	return string(bytes)
+	return marshal(this)
 }
 
 func (this *OpenIMPushCustomMsgParam) setAps(key string, value interface{}) {
@@ -200,4 +193,77 @@ func (this *OpenIMPushCustomMsgParam) AddApsParam(key string, value interface{})
 		this.ApsParam = make(map[string]interface{})
 	}
 	this.ApsParam[key] = value
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// OpenIMCreateTribeParam 创建群
+// http://open.taobao.com/doc2/apiDetail.htm?spm=a219a.7395905.0.0.JQ2jX6&apiId=25570
+type OpenIMCreateTribeParam struct {
+	User      *OpenIMUser    `json:"user"`            // 必须 用户信息
+	TribeName string         `json:"tribe_name"`      // 必须 群名称
+	Notice    string         `json:"notice"`          // 必须 群公告
+	TribeType string         `json:"tribe_type"`      // 必须 群类型有两种tribe_type = 0 普通群 普通群有管理员角色，对成员加入有权限控制tribe_type = 1 讨论组 讨论组没有管理员，不能解散
+	Members   []*OpenIMUser  `json:"members"`         // 可选 创建群时候拉入群的成员tribe_type = 1（即为讨论组类型)时 该参数为必选; tribe_type = 0 (即为普通群类型)时，改参数无效，可不填
+}
+
+func (this OpenIMCreateTribeParam) APIName() string {
+	return "taobao.openim.tribe.create"
+}
+
+func (this OpenIMCreateTribeParam) Params() map[string]string {
+	var m = make(map[string]string)
+	m["tribe_name"] = this.TribeName
+	m["notice"]     = this.Notice
+	m["tribe_type"] = this.TribeType
+	m["user"] = marshal(this.User)
+
+	if this.Members != nil {
+		m["members"] = marshal(this.Members)
+	}
+	return m
+}
+
+func (this OpenIMCreateTribeParam) ExtJSONParamName() string {
+	return ""
+}
+
+func (this OpenIMCreateTribeParam) ExtJSONParamValue() string {
+	return ""
+}
+
+func (this OpenIMCreateTribeParam) AddMember(m *OpenIMUser) {
+	if m == nil {
+		return
+	}
+	if this.Members == nil {
+		this.Members = make([]*OpenIMUser, 0, 0)
+	}
+	this.Members = append(this.Members, m)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// OpenIMGetTribeInfoParam 获取群信息
+// http://open.taobao.com/doc2/apiDetail.htm?spm=a219a.7395905.0.0.9IDIj5&apiId=25571
+type OpenIMGetTribeInfoParam struct {
+	User      *OpenIMUser    `json:"user"`            // 必须 用户信息
+	TribeId   string         `json:"tribe_id"`        // 必须 群id
+}
+
+func (this OpenIMGetTribeInfoParam) APIName() string {
+	return "taobao.openim.tribe.gettribeinfo"
+}
+
+func (this OpenIMGetTribeInfoParam) Params() map[string]string {
+	var m = make(map[string]string)
+	m["tribe_id"] = this.TribeId
+	m["user"] = marshal(this.User)
+	return m
+}
+
+func (this OpenIMGetTribeInfoParam) ExtJSONParamName() string {
+	return ""
+}
+
+func (this OpenIMGetTribeInfoParam) ExtJSONParamValue() string {
+	return ""
 }

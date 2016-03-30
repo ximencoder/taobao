@@ -4,8 +4,8 @@ package taobao
 // TextCheckParam 百川文档过虑
 // http://open.taobao.com/doc2/apiDetail.htm?spm=a219a.7386797.0.0.1u6W4i&apiId=25453
 type TextCheckParam struct {
-	Content string	// 必须		用户ugc内容
-	AppId   string	// 必须		isv的APP对应的key
+	Content string `json:"content"` // 必须   用户ugc内容
+	AppId   string `json:"app_id"`  // 必须   isv的APP对应的key
 }
 
 func (this TextCheckParam) APIName() string {

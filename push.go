@@ -2,7 +2,6 @@ package taobao
 
 import (
 	"fmt"
-	"encoding/json"
 )
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -46,11 +45,7 @@ func (this CloudPushParam) Params() map[string]string {
 		m["android_activity"]       = this.AndroidActivity
 	}
 	if len(this.androidExtParameters) > 0 {
-		var bytes, _ = json.Marshal(this.androidExtParameters)
-		var c = string(bytes)
-		if len(c) > 0 {
-			m["android_ext_parameters"] = c
-		}
+		m["android_ext_parameters"] = marshal(this.androidExtParameters)
 	}
 	if len(this.AndroidMusic) > 0 {
 		m["android_music"]          = this.AndroidMusic
@@ -76,11 +71,7 @@ func (this CloudPushParam) Params() map[string]string {
 		m["ios_badge"]              = this.IOSBadge
 	}
 	if len(this.iOSExtParameters) > 0 {
-		var bytes, _ = json.Marshal(this.iOSExtParameters)
-		var c = string(bytes)
-		if len(c) > 0 {
-			m["ios_ext_parameters"] = c
-		}
+		m["ios_ext_parameters"] = marshal(this.iOSExtParameters)
 	}
 	if len(this.IOSMusic) > 0 {
 		m["ios_music"]              = this.IOSMusic
@@ -161,11 +152,7 @@ func (this CloudPushNoticeToIOSParam) ExtJSONParamName() string {
 }
 
 func (this CloudPushNoticeToIOSParam) ExtJSONParamValue() string {
-	var bytes, err = json.Marshal(this.Ext)
-	if err != nil {
-		return ""
-	}
-	return string(bytes)
+	return marshal(this.Ext)
 }
 
 func (this *CloudPushNoticeToIOSParam) AddParam(key string, value interface{}) {
