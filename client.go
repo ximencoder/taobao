@@ -15,17 +15,17 @@ const (
 )
 
 var (
-	kTaoBaoAppKey    string
-	kTaoBaoAppSecret string
+	appKey    string
+	appSecret string
 )
 
 func UpdateKey(appKey, appSecret string) {
-	kTaoBaoAppKey    = appKey
-	kTaoBaoAppSecret = appSecret
+	appKey = appKey
+	appSecret = appSecret
 }
 
 func Request(param IParam) (results map[string]interface{}, err error) {
-	results, err = RequestWithKey(kTaoBaoAppKey, kTaoBaoAppSecret, param)
+	results, err = RequestWithKey(appKey, appSecret, param)
 	return results, err
 }
 
