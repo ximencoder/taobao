@@ -5,7 +5,7 @@ import (
 )
 
 ////////////////////////////////////////////////////////////////////////////////
-type IParam interface{
+type ITaoBaoParam interface{
 	// 用于提供访问的 method
 	APIName() string
 

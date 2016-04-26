@@ -24,12 +24,12 @@ func UpdateKey(appKey, appSecret string) {
 	appSecret = appSecret
 }
 
-func Request(param IParam) (results map[string]interface{}, err error) {
+func Request(param ITaoBaoParam) (results map[string]interface{}, err error) {
 	results, err = RequestWithKey(appKey, appSecret, param)
 	return results, err
 }
 
-func RequestWithKey(appKey, appSecret string, param IParam) (results map[string]interface{}, err error) {
+func RequestWithKey(appKey, appSecret string, param ITaoBaoParam) (results map[string]interface{}, err error) {
 	var p = make(map[string]string)
 	p["timestamp"]       = time.Now().Format("2006-01-02 15:04:05")
 	p["format"]          = "json"
