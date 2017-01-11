@@ -1,13 +1,14 @@
 package taobao
 
 import (
-	"fmt"
-	"time"
-	"sort"
-	"strings"
 	"crypto/md5"
 	"encoding/hex"
+	"fmt"
 	"github.com/smartwalle/going/http"
+	"net/url"
+	"sort"
+	"strings"
+	"time"
 )
 
 const (
@@ -30,48 +31,47 @@ func Request(param ITaoBaoParam) (results map[string]interface{}, err error) {
 }
 
 func RequestWithKey(appKey, appSecret string, param ITaoBaoParam) (results map[string]interface{}, err error) {
-	var p = make(map[string]string)
-	p["timestamp"]       = time.Now().Format("2006-01-02 15:04:05")
-	p["format"]          = "json"
-	p["v"]               = "2.0"
-	p["sign_method"]     = "md5"
-	p["app_key"]         = appKey
-	p["method"]          = param.APIName()
+	var p = url.Values{}
+	var keys = make([]string, 6, 6)
+
+	p.Add("timestamp", time.Now().Format("2006-01-02 15:04:05"))
+	p.Add("format", "json")
+	p.Add("v", "2.0")
+	p.Add("sign_method", "md5")
+	p.Add("app_key", appKey)
+	p.Add("method", param.APIName())
+
+	keys[0] = "timestamp"
+	keys[1] = "format"
+	keys[2] = "v"
+	keys[3] = "sign_method"
+	keys[4] = "app_key"
+	keys[5] = "method"
 
 	if len(param.ExtJSONParamName()) > 0 {
-		p[param.ExtJSONParamName()] = param.ExtJSONParamValue()
+		p.Add(param.ExtJSONParamName(), param.ExtJSONParamValue())
+		keys = append(keys, param.ExtJSONParamName())
 	}
 
 	var ps = param.Params()
 	if ps != nil {
 		for key, value := range ps {
-			p[key] = value
+			p.Add(key, value)
+			keys = append(keys, key)
 		}
 	}
-
-	var c = http.NewClient()
-	c.SetMethod("POST")
-	c.SetURLString(TAO_BAO_OPEN_API_URL)
-
-	var keys = make([]string, 0, len(p))
-	for key, value := range p {
-		c.SetParam(key, value)
-		keys = append(keys, key)
-	}
 	sort.Strings(keys)
+	p.Add("sign", sign(appSecret, keys, p))
 
-	c.SetParam("sign", sign(appSecret, keys, p))
-
-	results, err = c.DoJsonRequest()
+	results, err = http.JSONRequest("POST", TAO_BAO_OPEN_API_URL, p)
 	return results, err
 }
 
-func sign(appSecret string, keys []string, param map[string]string) (s string) {
+func sign(appSecret string, keys []string, param url.Values) (s string) {
 	for _, key := range keys {
-		s = s + key + param[key]
+		s = s + key + param.Get(key)
 	}
 	s = fmt.Sprintf("%s%s%s", appSecret, s, appSecret)
-
 	var m = md5.New()
 	m.Write([]byte(s))
 	s = strings.ToUpper(hex.EncodeToString(m.Sum(nil)))
