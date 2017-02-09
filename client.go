@@ -4,7 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
-	"github.com/smartwalle/going/http"
+	"github.com/smartwalle/going/request"
 	"net/url"
 	"sort"
 	"strings"
@@ -63,7 +63,7 @@ func RequestWithKey(appKey, appSecret string, param ITaoBaoParam) (results map[s
 	sort.Strings(keys)
 	p.Add("sign", sign(appSecret, keys, p))
 
-	results, err = http.JSONRequest("POST", TAO_BAO_OPEN_API_URL, p)
+	results, err = request.JSONRequest("POST", TAO_BAO_OPEN_API_URL, p)
 	return results, err
 }
 
