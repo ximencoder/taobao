@@ -63,8 +63,17 @@ func RequestWithKey(appKey, appSecret string, param ITaoBaoParam) (results map[s
 	sort.Strings(keys)
 	p.Add("sign", sign(appSecret, keys, p))
 
-	results, err = request.JSONRequest("POST", TAO_BAO_OPEN_API_URL, p)
+	var req = request.NewRequest("POST", TAO_BAO_OPEN_API_URL)
+	req.SetHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8")
+	req.SetParams(p)
+
+	var rep = req.Exec()
+	err = rep.UnmarshalJSON(&results)
 	return results, err
+
+
+	//results, err = request.JSONRequest("POST", TAO_BAO_OPEN_API_URL, p)
+	//return results, err
 }
 
 func sign(appSecret string, keys []string, param url.Values) (s string) {

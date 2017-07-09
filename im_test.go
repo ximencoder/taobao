@@ -4,17 +4,17 @@ package taobao
 //	"fmt"
 //	"testing"
 //)
-
+//
 //func TestOpenIMAddUsersParam(t *testing.T) {
 //	var p = OpenIMUpdateUsersParam{}
 //
-//	var u1 = OpenIMUser{}
+//	var u1 = OpenIMUserInfo{}
 //	u1.UserId = "56e279cfc77b930ae86b52e7"
 //	u1.Password = "a6facfa821ba92c3c17f4c3fae5442c2"
 //	u1.Nick = "我是管理员"
 //	u1.IconURL = "http://7xjcby.com2.z0.glb.qiniucdn.com/files%2Favatar%2F1%2F1_20150108073305311.jpg"
 //
-//	var u2 = OpenIMUser{}
+//	var u2 = OpenIMUserInfo{}
 //	u2.UserId = "admin5"
 //	u2.Password = "123456"
 //	u2.Nick = "我应该换个名字啦"
